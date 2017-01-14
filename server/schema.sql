@@ -1,29 +1,27 @@
-CREATE DATABASE chat;
+CREATE DATABASE IF NOT EXISTS chat;
 
 USE chat;
 
-CREATE TABLE messages (
-  /* Describe your table here.*/
-  text VARCHAR(110),
-  user_id INT UNSIGNED NOT NULL,
-  message_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  FOREIGN KEY (user_id) REFERENCES users(user_id);
+/* Create other tables and define schemas for them here! */
+CREATE TABLE IF NOT EXISTS users (
+  user_name VARCHAR(30),
+  user_id int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (user_id) 
 );
 
-/* Create other tables and define schemas for them here! */
-CREATE TABLE users {
-  user_name VARCHAR(30) DEFAULT 'anonymous',
-  user_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
-};
 
-CREATE TABLE rooms {
-  room_name VARCHAR(30) DEFAULT 'lobby', 
-  room_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
-};
+CREATE TABLE IF NOT EXISTS messages(
+  /* Describe your table here.*/
+  message_id int NOT NULL AUTO_INCREMENT,
+  user int,
+  room VARCHAR(10),
+  text_msg VARCHAR(110),
+  PRIMARY KEY (message_id)
+);
 
+-- ALTER TABLE `messages` ADD FOREIGN KEY (user) REFERENCES `users` (`user_id`);
 
-
-
+-- FOREIGN KEY (user) REFERENCES users(user_id)
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/

@@ -8,8 +8,27 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
-    post: function () {}
+    get: function (callback) {
+      var queryStr = 'select * from users';
+
+      db.query(queryStr, function (err, results) {
+        callback(err, results);
+      });
+    },                   
+    //passing in 'data' from users.post (controller)
+    post: function (obj, callback) {
+      console.log('I arrived to the post from the model');
+      // var queryString = 'insert into users(user_name) values (?)';
+      //var queryString = 'insert into users set ?';
+
+      db.query('INSERT INTO users(user_name) VALUES (?)', obj, function(err, results) {
+        console.log('database POST UserName: ', obj);                   
+        if (err) {
+          console.log('DataBase could not POST UserName: ' + err);
+        }
+        callback(err, results);
+      });
+    } 
   }
 };
 
