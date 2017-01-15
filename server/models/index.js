@@ -3,7 +3,9 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function () {}, // a function which produces all the messages
-    post: function () {} // a function which can be used to insert a message into the database
+    post: function (array, cb) {
+
+    } // a function which can be used to insert a message into the database
   },
 
   users: {
@@ -16,13 +18,14 @@ module.exports = {
       });
     },                   
     //passing in 'data' from users.post (controller)
-    post: function (obj, callback) {
+    post: function (array, callback) {
       console.log('I arrived to the post from the model');
       // var queryString = 'insert into users(user_name) values (?)';
       //var queryString = 'insert into users set ?';
 
-      db.query('INSERT INTO users(user_name) VALUES (?)', obj, function(err, results) {
-        console.log('database POST UserName: ', obj);                   
+      //Write out Queries based on our 'schema.sql'
+      db.query('INSERT INTO users (user_name) VALUES (?)', array, function(err, results) {
+        console.log('database POST UserName: ', array);                   
         if (err) {
           console.log('DataBase could not POST UserName: ' + err);
         }

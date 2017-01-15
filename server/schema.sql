@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS messages(
   /* Describe your table here.*/
   message_id int NOT NULL AUTO_INCREMENT,
-  user int,
+  user VARCHAR(30),
   room VARCHAR(10),
   text_msg VARCHAR(110),
   PRIMARY KEY (message_id)

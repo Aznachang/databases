@@ -225,8 +225,8 @@ var app = {
   },
 
   startSpinner: function() {
-    $('.spinner img').show();
-    $('form input[type=submit]').attr('disabled', 'true');
+    // $('.spinner img').show();
+    // $('form input[type=submit]').attr('disabled', 'true');
   },
 
   stopSpinner: function() {

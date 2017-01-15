@@ -7,7 +7,29 @@ module.exports = {
 
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+      var body = '';
+      // console.log('Messages POST: ' + JSON.parse(req.body));
+      req.on('data', function(data) {
+        body += data;
+      });
+      req.on('end', function(data) {
+        console.log(JSON.parse(body));
 
+        var params = [req.body.username,
+        req.body.message,
+        req.body.roomname];
+
+        models.messages.post(params, function(err, results) {
+
+          if (err) {
+            throw error;
+            console.log('Error Posting to Server: ', err);
+          }
+
+          res.sendStatus(201);
+        });
+
+      });
     } // a function which handles posting a message to the database
   },
 
@@ -20,9 +42,9 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log('please come here', req.body.username);
+      console.log('please come here', req.body.user_name);
 
-      var params = [req.body.username];
+      var params = [req.body.username]; //username
       models.users.post(params, function(err, results ) {
         if (err) {
           console.log('Error Posting to Server: ', err);
