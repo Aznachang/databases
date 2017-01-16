@@ -1,26 +1,21 @@
 var models = require('../models');
 
 module.exports = {
-
+  // Call the Database Model messages.get 
   messages: {
     get: function (req, res) {
-
-    }, // a function which handles a get request for all messages
-    post: function (req, res) {
-      var body = '';
-      // console.log('Messages POST: ' + JSON.parse(req.body));
-      req.on('data', function(data) {
-        body += data;
+      models.messages.get(function(err, results) {
+        if (err) { /* do something */ }
+        res.json(results);
       });
-      req.on('end', function(data) {
-        console.log(JSON.parse(body));
-
+    }, // a function which handles a get request for all messages
+    // Call the Database Model messages.post 
+    post: function (req, res) {
         var params = [req.body.username,
         req.body.message,
         req.body.roomname];
 
         models.messages.post(params, function(err, results) {
-
           if (err) {
             throw error;
             console.log('Error Posting to Server: ', err);
@@ -34,13 +29,14 @@ module.exports = {
   },
 
   users: {
-    // Ditto as above
+    // Call the Database Model users.get 
     get: function (req, res) {
       models.users.get(function(err, results) {
         if (err) { console.log('get controller: error'); }
         res.json(results);
       });
     },
+    //Call the Database Model users.post
     post: function (req, res) {
       console.log('please come here', req.body.user_name);
 
