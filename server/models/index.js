@@ -1,10 +1,21 @@
 var db = require('../db');
 
 module.exports = {
+  //we are receiving all the messages from the Messages Database Table
   messages: {
-    get: function () {}, // a function which produces all the messages
+    get: function (cb) {
+      var queryStr = 'select messages.id, messages.text, messages.roomname, users.user_name \
+                      from messages';
+      db.query(queryStr, function (err, results) {
+        cb(err, results);  
+      });
+    }, // a function which produces all the messages
     post: function (array, cb) {
-
+      var queryStr = 'insert into messages(text,userid, roomname) \
+                      value (?, (select id from users where username = ?), ?)';
+      db.query(queryStr, function (err, results) {
+        cb(err, results);  
+      });
     } // a function which can be used to insert a message into the database
   },
 
